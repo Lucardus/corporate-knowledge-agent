@@ -6,7 +6,7 @@ Agente de IA corporativo capaz de responder perguntas de colaboradores/clientes 
 - **Segurança** contra prompt injection e vazamento de PII
 - **Observabilidade** completa em produção
 
-Projeto desenvolvido durante o bootcamp **Production-Ready AI with Google Cloud**.
+Projeto desenvolvido durante o bootcamp da Triggo.ai **Production-Ready AI with Google Cloud**.
 
 ## Stack
 - **Modelo**: Gemini via Vertex AI SDK
