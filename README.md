@@ -1,30 +1,30 @@
 # Corporate Knowledge Agent
 
-Agente de IA corporativo capaz de responder perguntas de colaboradores/clientes combinando:
-- **Dados não estruturados** (políticas, manuais, FAQs) via RAG
-- **Dados estruturados** (métricas, status, relatórios) via consulta a banco de dados
-- **Segurança** contra prompt injection e vazamento de PII
-- **Observabilidade** completa em produção
+A corporate AI agent capable of answering questions from employees and clients by combining:
+- **Unstructured data** (policies, manuals, FAQs) via RAG
+- **Structured data** (metrics, status, reports) via database queries
+- **Security** against prompt injection and PII leakage
+- **Full observability** in production
 
-Projeto desenvolvido durante o bootcamp da Triggo.ai **Production-Ready AI with Google Cloud**.
+Project developed during the Triggo.ai **Production-Ready AI with Google Cloud** bootcamp.
 
 ## Stack
-- **Modelo**: Gemini via Vertex AI SDK
-- **Orquestração de agentes**: Agent Development Kit (ADK)
+- **Model**: Gemini via Vertex AI SDK
+- **Agent orchestration**: Agent Development Kit (ADK)
 - **RAG**: AlloyDB / Cloud SQL (pgvector)
-- **Integração de dados**: MCP + MCP Toolbox
-- **Comunicação entre agentes**: A2A
-- **Segurança**: Model Armor + Sensitive Data Protection
-- **Deploy**: Cloud Run / GKE / Agent Engine
-- **Avaliação**: Vertex AI Evaluation
+- **Data integration**: MCP + MCP Toolbox
+- **Agent-to-agent communication**: A2A
+- **Security**: Model Armor + Sensitive Data Protection
+- **Deployment**: Cloud Run / GKE / Agent Engine
+- **Evaluation**: Vertex AI Evaluation
 
-## Progresso
-- [x] Dia 1 — App base com Vertex AI SDK (`src/agents/base_chatbot.py`)
-- [ ] Dia 2 — Agentes com ADK
-- [ ] Dia 3 — RAG avançado
-- [ ] Dia 4 — MCP + A2A
-- [ ] Dia 5 — Segurança
-- [ ] Dia 6 — Deploy + observabilidade
-- [ ] Dia 7 — Avaliação
+## Progress
+- [x] Day 1 — Base app with Vertex AI SDK (`src/agents/base_chatbot.py`)
+- [ ] Day 2 — Agents with ADK
+- [ ] Day 3 — Advanced RAG
+- [ ] Day 4 — MCP + A2A
+- [ ] Day 5 — Security
+- [ ] Day 6 — Deployment + observability
+- [ ] Day 7 — Evaluation
 
 #ProductionReadyAI
