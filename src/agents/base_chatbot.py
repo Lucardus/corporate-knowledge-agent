@@ -1195,9 +1195,48 @@ Never sacrifice truthfulness merely to provide a more satisfying answer.
 """
 
 # --- Tooling ---
-# TODO: Define the weather tool function declaration
+weather_function = {
+    "name": "get_current_temperature",
+    "description": "Gets the current temperature for a given location.",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "location": {
+                "type": "string",
+                "description": "The city name, e.g. San Francisco",
+            },
+        },
+        "required": ["location"],
+    },
+}
 
-# TODO: Define the get_current_temperature function
+def get_current_temperature(location: str) -> str:
+    """Gets the current temperature for a given location."""
+
+    try:
+        # --- Get Latitude and Longitude for the location ---
+        geocode_url = f"https://geocoding-api.open-meteo.com/v1/search?name={location}&count=1&language=en&format=json"
+        geocode_response = requests.get(geocode_url)
+        geocode_data = geocode_response.json()
+
+        if not geocode_data.get("results"):
+            return f"Could not find coordinates for {location}."
+
+        lat = geocode_data["results"][0]["latitude"]
+        lon = geocode_data["results"][0]["longitude"]
+
+        # --- Get Weather for the coordinates ---
+        weather_url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current_weather=true"
+        weather_response = requests.get(weather_url)
+        weather_data = weather_response.json()
+
+        temperature = weather_data["current_weather"]["temperature"]
+        unit = "°C"
+
+        return f"{temperature}{unit}"
+
+    except Exception as e:
+        return f"Error fetching weather: {e}"
 
 
 # --- Initialize the Vertex AI Client ---
@@ -1213,34 +1252,57 @@ except Exception as e:
     st.stop()
 
 
-# TODO: Add the get_chat function here in Task 15.
+def get_chat(model_name: str):
+    if f"chat-{model_name}" not in st.session_state:
+        # Tools
+        tools = types.Tool(function_declarations=[weather_function])
+
+        # Initialize a configuration object
+        generate_content_config = types.GenerateContentConfig(
+            temperature=temperature,
+            top_p=top_p,
+            system_instruction=[types.Part.from_text(text=system_instructions)],
+            tools=[tools] 
+        )
+        chat = client.chats.create(
+            model=model_name,
+            config=generate_content_config,
+        )
+        st.session_state[f"chat-{model_name}"] = chat
+    return st.session_state[f"chat-{model_name}"]
 
 
 # --- Call the Model ---
 def call_model(prompt: str, model_name: str) -> str:
-    """
-    This function interacts with a large language model (LLM) to generate text based on a given prompt and system instructions. 
-    It will be replaced in a later step with a more advanced version that handles tooling.
-    """
     try:
+        chat = get_chat(model_name)
+        message_content = prompt
+        
+        while True:
+            response = chat.send_message(message_content)
+            has_tool_calls = False
+            for part in response.candidates[0].content.parts:
+                if part.function_call:
+                    has_tool_calls = True
+                    function_call = part.function_call
+                    logging.info(f"Function to call: {function_call.name}")
+                    logging.info(f"Arguments: {function_call.args}")
+                    if function_call.name == "get_current_temperature":
+                        result = get_current_temperature(**function_call.args)
+                        function_response_part = types.Part.from_function_response(
+                            name=function_call.name,
+                            response={"result": result},
+                        )
+                        message_content = [function_response_part]
+                elif part.text:
+                    logging.info("No function call found in the response.")
+                    logging.info(response.text)
 
-        contents = [prompt]
-
-        generate_content_config = types.GenerateContentConfig(
-            system_instruction=[
-                types.Part.from_text(text=system_instructions)
-            ],
-        )
-        logging.info(f"[generate_config_details] System Instruction: {generate_content_config.system_instruction[0].text}")
-
-        response = client.models.generate_content(
-            model=model_name,
-            contents=contents,
-            config=generate_content_config,
-        )
-        logging.info(f"[call_model_response] LLM Response: \"{response.text}\"")
+            if not has_tool_calls:
+                break
 
         return response.text
+
     except Exception as e:
         return f"Error: {e}"
 
