@@ -4,7 +4,7 @@
 - [x] Chatbot base com Vertex AI SDK (`src/agents/base_chatbot.py`)
 
 ## Dia 2 — Agentes (ADK)
-- [ ] Orchestrator Agent
+- [x] Orchestrator Agent
 - [ ] FAQ Agent + Data Query Agent
 - [ ] Orquestração multi-agente
 
