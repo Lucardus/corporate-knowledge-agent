@@ -20,7 +20,7 @@ Project developed during the Triggo.ai **Production-Ready AI with Google Cloud**
 
 ## Progress
 - [x] Day 1 — Base app with Vertex AI SDK (`src/agents/base_chatbot.py`)
-- [ ] Day 2 — Agents with ADK
+- [x] Day 2 — Agents with ADK
 - [ ] Day 3 — Advanced RAG
 - [ ] Day 4 — MCP + A2A
 - [ ] Day 5 — Security
