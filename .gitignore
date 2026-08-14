@@ -13,3 +13,4 @@ service-account*.json
 *.log
 __pycache__/
 .adk/
+alloydb-auth-proxy
