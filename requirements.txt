@@ -1,3 +1,4 @@
+aiofiles==25.1.0
 aiohappyeyeballs==2.7.1
 aiohttp==3.14.3
 aiosignal==1.4.0
@@ -6,6 +7,7 @@ altair==6.2.2
 annotated-doc==0.0.5
 annotated-types==0.8.0
 anyio==4.14.2
+asn1crypto==1.5.1
 attrs==26.1.0
 Authlib==1.7.2
 beautifulsoup4==4.15.0
@@ -23,12 +25,15 @@ google-api-core==2.34.0
 google-api-python-client==2.198.0
 google-auth==2.56.3
 google-auth-httplib2==0.4.1
+google-cloud-alloydb==0.11.0
+google-cloud-alloydb-connector==1.13.1
 google-cloud-core==2.6.1
 google-cloud-modelarmor==0.7.1
 google-genai==2.17.0
 googleapis-common-protos==1.75.1
 graphviz==0.21
 greenlet==3.5.5
+grpc-google-iam-v1==0.14.5
 grpcio==1.83.0
 grpcio-status==1.83.0
 h11==0.16.0
@@ -68,6 +73,7 @@ orjson==3.11.9
 ormsgpack==1.12.2
 packaging==26.3
 pandas==3.0.5
+pg8000==1.31.5
 pillow==12.3.0
 propcache==0.5.2
 proto-plus==1.28.3
@@ -89,6 +95,7 @@ referencing==0.37.0
 requests==2.34.2
 requests-toolbelt==1.0.0
 rpds-py==2026.6.3
+scramp==1.4.17
 six==1.17.0
 sniffio==1.3.1
 soupsieve==2.9.2
