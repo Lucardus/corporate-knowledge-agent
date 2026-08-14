@@ -5,8 +5,8 @@
 
 ## Dia 2 — Agentes (ADK)
 - [x] Orchestrator Agent
-- [ ] FAQ Agent + Data Query Agent
-- [ ] Orquestração multi-agente
+- [x] FAQ Agent + Data Query Agent
+- [x] Orquestração multi-agente
 
 ## Dia 3 — RAG Avançado
 - [ ] Embeddings (AlloyDB/Cloud SQL)
