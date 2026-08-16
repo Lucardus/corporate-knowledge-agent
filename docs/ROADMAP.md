@@ -9,11 +9,11 @@
 - [x] Orquestração multi-agente
 
 ## Dia 3 — RAG Avançado
-- [ ] Embeddings (AlloyDB/Cloud SQL)
-- [ ] Busca semântica + reranking
+- [x] Embeddings (AlloyDB/Cloud SQL)
+- [x] Busca semântica + reranking
 
 ## Dia 4 — MCP + A2A
-- [ ] MCP Toolbox para dados estruturados
+- [x] MCP Toolbox para dados estruturados
 - [ ] Comunicação A2A entre agentes
 
 ## Dia 5 — Segurança
