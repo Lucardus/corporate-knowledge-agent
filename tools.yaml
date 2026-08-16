@@ -1,0 +1,64 @@
+sources:
+  corporate-knowledge-alloydb:
+    kind: alloydb-postgres
+    project: even-acumen-505214-m8
+    region: us-central1
+    cluster: corporate-knowledge-cluster
+    instance: corporate-knowledge-instance
+    database: postgres
+    user: postgres
+    password: ${ALLOYDB_PASSWORD}
+
+tools:
+  get-order-status:
+    kind: postgres-sql
+    source: corporate-knowledge-alloydb
+    description: |
+      Retrieves the current status and details of a specific order by its order ID.
+      Use this to answer questions about order status, tracking, or order details.
+    parameters:
+      - name: order_id
+        type: string
+        description: The order ID to look up, e.g. NS-48291
+    statement: |
+      SELECT order_id, customer_id, status, total_amount, currency, order_date, last_updated
+      FROM orders
+      WHERE order_id = $1;
+
+  list-orders-by-customer:
+    kind: postgres-sql
+    source: corporate-knowledge-alloydb
+    description: |
+      Lists all orders belonging to a specific customer ID.
+      Use this when the user wants to see order history for a customer.
+    parameters:
+      - name: customer_id
+        type: string
+        description: The customer ID to look up, e.g. CUST-1001
+    statement: |
+      SELECT order_id, status, total_amount, currency, order_date
+      FROM orders
+      WHERE customer_id = $1
+      ORDER BY order_date DESC;
+
+  list-orders-by-status:
+    kind: postgres-sql
+    source: corporate-knowledge-alloydb
+    description: |
+      Lists orders filtered by their current status (e.g. PENDING, SHIPPED, DELIVERED).
+      Use this for aggregate or operational questions like "how many orders are pending".
+    parameters:
+      - name: status
+        type: string
+        description: "Order status to filter by: PENDING, CONFIRMED, PROCESSING, SHIPPED, DELIVERED, CANCELLED, REFUND_PENDING, or REFUNDED"
+    statement: |
+      SELECT order_id, customer_id, total_amount, currency, order_date
+      FROM orders
+      WHERE status = $1
+      ORDER BY order_date DESC;
+
+toolsets:
+  order_management_toolset:
+    - get-order-status
+    - list-orders-by-customer
+    - list-orders-by-status
